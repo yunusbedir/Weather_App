@@ -1,7 +1,11 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.8.0"
+    id("com.codingfeline.buildkonfig")
 }
 
 kotlin {
@@ -81,5 +85,23 @@ android {
     compileSdk = 33
     defaultConfig {
         minSdk = 24
+    }
+}
+
+buildkonfig {
+    packageName = "com.yunusbedir.weatherapp"
+    val baseUrl = "BASE_URL"
+    val apiKey = "API_KEY"
+    defaultConfigs {
+        buildConfigField(
+            type = Type.STRING,
+            name = baseUrl,
+            value = "https://api.openweathermap.org/data/2.5/"
+        )
+        buildConfigField(
+            type = Type.STRING,
+            name = apiKey,
+            value = ""
+        )
     }
 }
