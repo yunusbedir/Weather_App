@@ -8,12 +8,17 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.yunusbedir.weatherapp.android.ui.common.Home
+import com.yunusbedir.weatherapp.android.ui.common.WeatherAppBar
+import com.yunusbedir.weatherapp.android.ui.common.weatherAppDestinations
 import com.yunusbedir.weatherapp.android.ui.home.HomeScreen
 import com.yunusbedir.weatherapp.android.ui.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -37,17 +42,33 @@ fun WeatherMain(
         systemUiController.setStatusBarColor(color = statusBarColor, darkIcons = !isSystemDark)
     }
 
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentScreen = weatherAppDestinations.find {
+        backStackEntry?.destination?.route == it.route ||
+                backStackEntry?.destination?.route == it.routeWithArgs
+    } ?: Home
+
     Scaffold(
-        scaffoldState = scaffoldState
+        scaffoldState = scaffoldState,
+        topBar = {
+            WeatherAppBar(
+                canNavigateBack = navController.previousBackStackEntry != null,
+                canMoreVert = currentScreen.route == Home.route,
+                currentScreen = currentScreen,
+                onNavigateBack = { navController.navigateUp() },
+                onAddClicked = {  },
+                onMoreVertClicked = {}
+            )
+        }
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "home",
+            startDestination = Home.route,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            composable(route = "home") {
+            composable(route = Home.route) {
                 val homeViewModel: HomeViewModel = koinViewModel()
                 HomeScreen(homeViewModel)
             }
