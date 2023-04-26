@@ -58,16 +58,6 @@ fun WeatherMain(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = {
-            WeatherAppBar(
-                canNavigateBack = navController.previousBackStackEntry != null,
-                canMoreVert = currentScreen.route == Home.route,
-                currentScreen = currentScreen,
-                onNavigateBack = { navController.navigateUp() },
-                onAddClicked = {  },
-                onMoreVertClicked = {}
-            )
-        },
         backgroundColor = Color.Transparent
     ) { innerPadding ->
         NavHost(

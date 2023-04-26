@@ -14,6 +14,7 @@ class HomeViewModel(
 
     var uiState by mutableStateOf(HomeScreenState())
         private set
+
     init {
         getCurrentWeather()
     }
@@ -41,5 +42,14 @@ data class HomeScreenState(
     val humidity: String = "32",
     val unitType: String = "C",
     val currentStation: String = "Sultanbeyli",
+    val dailyWeatherForecastItems: List<DailyWeatherForecastItem> = listOf(
+        DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem(),DailyWeatherForecastItem()
+    ),
     val refreshing: Boolean = false
-)
+) {
+    data class DailyWeatherForecastItem(
+        val temp: String = "34",
+        val date: String = "Now",
+        val icon: String = ""
+    )
+}

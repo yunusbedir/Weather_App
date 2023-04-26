@@ -3,6 +3,8 @@ package com.yunusbedir.weatherapp.android.ui.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -42,43 +44,65 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .background(color = Color.Transparent),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Column(
+
+            Text(
+                text = uiState.currentStation,
+                style = MaterialTheme.typography.h3,
+                color = Color.White,
                 modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.Start
+                    .padding(top = 56.dp)
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.rain),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4f)
+                    .padding(top = 48.dp)
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(1f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = uiState.temp,
-                        style = MaterialTheme.typography.h3,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                    Text(
-                        text = uiState.unitType,
-                        style = MaterialTheme.typography.h6,
-                        color = MaterialTheme.colors.onBackground
+                Text(
+                    text = uiState.temp,
+                    style = MaterialTheme.typography.h3,
+                    color = Color.White
+                )
+                Text(
+                    text = uiState.unitType,
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+            }
+
+            LazyRow(
+                contentPadding = PaddingValues(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(0.dp),
+                modifier = Modifier
+                    .padding(24.dp)
+                    .fillMaxHeight(1f),
+                verticalAlignment = Alignment.Bottom
+            ) {
+                itemsIndexed(
+                    items = uiState.dailyWeatherForecastItems
+                ) { _, dailyWeatherForecastItem ->
+                    DailyWeatherForecastItem(
+                        dailyWeatherForecastItem = dailyWeatherForecastItem,
+                        modifier = Modifier
+                            .width(96.dp)
+                            .padding(8.dp)
                     )
                 }
-
-                Image(
-                    painter = painterResource(id = R.drawable.rain),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-
             }
         }
 
