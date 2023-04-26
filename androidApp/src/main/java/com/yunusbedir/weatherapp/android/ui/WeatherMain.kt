@@ -1,5 +1,6 @@
 package com.yunusbedir.weatherapp.android.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,12 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.LinearGradientShader
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.yunusbedir.weatherapp.android.GreetingView
+import com.yunusbedir.weatherapp.android.MyApplicationTheme
 import com.yunusbedir.weatherapp.android.ui.common.Home
 import com.yunusbedir.weatherapp.android.ui.common.WeatherAppBar
 import com.yunusbedir.weatherapp.android.ui.common.weatherAppDestinations
@@ -59,7 +67,8 @@ fun WeatherMain(
                 onAddClicked = {  },
                 onMoreVertClicked = {}
             )
-        }
+        },
+        backgroundColor = Color.Transparent
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -70,8 +79,16 @@ fun WeatherMain(
         ) {
             composable(route = Home.route) {
                 val homeViewModel: HomeViewModel = koinViewModel()
-                HomeScreen(homeViewModel)
+                HomeScreen(homeViewModel.uiState)
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    MyApplicationTheme {
+        WeatherMain()
     }
 }

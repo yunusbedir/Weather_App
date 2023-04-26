@@ -10,8 +10,8 @@ internal data class CurrentWeatherResponse(
     val main: CurrentWeatherResponseMain,
     val visibility: Int,
     val wind: CurrentWeatherResponseWind,
-    val rain: CurrentWeatherResponseRain,
-    val clouds: CurrentWeatherResponseClouds,
+    var rain: CurrentWeatherResponseRain? = null,
+    var clouds: CurrentWeatherResponseClouds? = null,
     val dt: Long,
     val sys: CurrentWeatherResponseSys,
     val timezone: Int,
@@ -22,8 +22,8 @@ internal data class CurrentWeatherResponse(
 
 @kotlinx.serialization.Serializable
 internal data class CurrentWeatherResponseCoord(
-    val lon: Int,
-    val lat: Int
+    val lon: Double,
+    val lat: Double
 )
 
 @kotlinx.serialization.Serializable
@@ -46,16 +46,16 @@ internal data class CurrentWeatherResponseMain(
     val pressure: Int,
     val humidity: Int,
     @SerialName("sea_level")
-    val seaLevel: Int,
+    var seaLevel: Int?= null,
     @SerialName("grnd_level")
-    val grndLevel: Int
+    var grndLevel: Int? = null
 )
 
 @kotlinx.serialization.Serializable
 internal data class CurrentWeatherResponseWind(
     val speed: Double,
     val deg: Int,
-    val gust: Double
+    var gust: Double? = null
 )
 
 @kotlinx.serialization.Serializable
