@@ -20,7 +20,14 @@ internal abstract class KtorApi {
                 }
             )
         }
-        install(Logging)
+        install(Logging)  {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    println("loggerTag: $message") // Or whatever logging system you want here
+                }
+            }
+            level = LogLevel.ALL
+        }
     }
 
     fun HttpRequestBuilder.pathUrl(path: String) {

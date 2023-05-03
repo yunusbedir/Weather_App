@@ -25,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yunusbedir.weatherapp.android.MyApplicationTheme
 import com.yunusbedir.weatherapp.android.R
+import com.yunusbedir.weatherapp.android.ui.common.WeatherIconImage
+import com.yunusbedir.weatherapp.util.WeatherIcon
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -93,16 +95,14 @@ fun HomeScreen(
                 )
 
             }
-
-            Image(
-                painter = painterResource(id = R.drawable.rain),
-                contentDescription = null,
+            WeatherIconImage(
+                weatherIcon = WeatherIcon.CLEAR_SKY,
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.4f)
                     .padding(top = 48.dp)
-            )
 
+            )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,11 +159,12 @@ fun HomeScreen(
             ) {
                 itemsIndexed(
                     items = uiState.dailyWeatherForecastItems
-                ) { _, dailyWeatherForecastItem ->
+                ) { _, dayAndForecast ->
                     DailyWeatherForecastItem(
-                        dailyWeatherForecastItem = dailyWeatherForecastItem,
+                        dayAndForecast = dayAndForecast,
                         modifier = Modifier
-                            .width(96.dp)
+                            .fillMaxHeight()
+                            .width(116.dp)
                             .padding(8.dp)
                     )
                 }
@@ -178,6 +179,8 @@ fun HomeScreen(
         )
     }
 }
+
+
 
 @Preview
 @Composable

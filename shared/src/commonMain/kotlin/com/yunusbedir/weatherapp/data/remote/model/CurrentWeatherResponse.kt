@@ -71,9 +71,9 @@ internal data class CurrentWeatherResponseClouds(
 
 @kotlinx.serialization.Serializable
 internal data class CurrentWeatherResponseSys(
-    val country: String,
-    val sunrise: Long,
-    val sunset: Long,
+    val country: String? = null,
+    val sunrise: Long? = null,
+    val sunset: Long? = null,
 )
 
 

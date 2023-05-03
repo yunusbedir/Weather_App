@@ -30,6 +30,7 @@ kotlin {
     val coroutineVersion = "1.6.4"
     val ktorVersion = "2.2.4"
     val koinVersion = "3.4.0"
+    val dateTimeVersion = "0.4.0"
 
     sourceSets {
         val commonMain by getting {
@@ -41,6 +42,8 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
                 api("io.insert-koin:koin-core:$koinVersion")
+                /** Date Time **/
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
             }
         }
         val commonTest by getting {
@@ -102,7 +105,7 @@ buildkonfig {
         buildConfigField(
             type = Type.STRING,
             name = apiKey,
-            value = ""
+            value = "fea2af2897c4e4a85d94c329641cc399"
         )
     }
 }
